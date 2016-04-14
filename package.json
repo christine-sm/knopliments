@@ -1,0 +1,19 @@
+{
+  "name": "knopliments",
+  "version": "1.0.0",
+  "description": "MEAN App for Leslie Knope-themed compliments",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cmmovius/knopliments.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cmmovius/knopliments/issues"
+  },
+  "homepage": "https://github.com/cmmovius/knopliments#readme"
+}
