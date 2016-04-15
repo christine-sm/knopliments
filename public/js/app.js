@@ -19,13 +19,13 @@
   .controller("compIndexCtrl", [
     "Compliment",
     compIndexCtrl
+  ])
+  .controller("compShowCtrl", [
+    "Compliment",
+    "$stateParams",
+    "$window",
+    compShowCtrl
   ]);
-  // .controller("compShowCtrl", [
-  //   "Compliment",
-  //   "$stateParams",
-  //   "$window",
-  //   compShowCtrl
-  // ]);
 
   function Router($stateProvider, $locationProvider, $urlRouterProvider){
     $locationProvider.html5Mode(true);
@@ -40,17 +40,17 @@
       controller: "compIndexCtrl",
       controllerAs: "compIndexVM"
     })
-    // .state("show", {
-    //   url: "/candidates/:name",
-    //   templateUrl: "/assets/html/candidates-show.html",
-    //   controller: "candShowCtrl",
-    //   controllerAs: "showVM"
-    // });
+    .state("show", {
+      url: "/compliments/:compliment",
+      templateUrl: "/assets/html/compliments-show.html",
+      controller: "compShowCtrl",
+      controllerAs: "compShowVM"
+    });
     $urlRouterProvider.otherwise("/");
   }
 
   function ComplimentFactory($resource){
-    var Compliment = $resource("/api/compliments/:name", {}, {
+    var Compliment = $resource("/api/compliments/:compliment", {}, {
       update: {method: "PUT"}
     });
     Compliment.all = Compliment.query();
@@ -67,6 +67,23 @@
   function compIndexCtrl(Compliment){
     var vm = this;
     vm.compliments = Compliment.all;
+  }
+
+  function compShowCtrl(Compliment, $stateParams, $window){
+    var vm = this;
+    Compliment.find("compliment", $stateParams.compliment, function(compliment){
+      vm.compliment = compliment;
+    });
+    // vm.update = function(){
+    //   Compliment.update({compliment: vm.compliment.compliment}, {compliment: vm.compliment}, function(){
+    //     console.log("Done!");
+    //   });
+    // };
+    // vm.delete = function(){
+    //   Compliment.remove({compliment: vm.compliment.compliment}, function(){
+    //     $window.location.replace("/");
+    //   });
+    // };
   }
 
 })();

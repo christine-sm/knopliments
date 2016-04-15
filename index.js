@@ -24,6 +24,12 @@ app.get("/api/compliments", function(req, res){
   });
 });
 
+app.get("/api/compliments/:compliment", function(req, res){
+  Compliment.findOne({compliment: req.params.compliment}).then(function(compliment){
+    res.json(compliment);
+  });
+});
+
 app.get("/*", function(req, res){
   res.render("compliments");
 });
