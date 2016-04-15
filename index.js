@@ -18,6 +18,12 @@ app.engine(".hbs", hbs({
 app.use("/assets", express.static("public"));
 app.use(parser.urlencoded({extended: true}));
 
+app.get("/api/compliments", function(req, res){
+  Compliment.find({}).then(function(compliments){
+    res.json(compliments);
+  });
+});
+
 app.get("/*", function(req, res){
   res.render("compliments");
 });
