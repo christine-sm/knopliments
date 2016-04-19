@@ -16,6 +16,7 @@
     "$resource",
     ComplimentFactory
   ])
+  .directive("compForm", compForm)
   .controller("compIndexCtrl", [
     "Compliment",
     compIndexCtrl

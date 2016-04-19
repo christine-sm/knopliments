@@ -30,6 +30,12 @@ app.get("/api/compliments/:compliment", function(req, res){
   });
 });
 
+app.post("/api/compliments", function(req, res){
+  Compliment.create(req.body.compliment).then(function(compliment){
+    res.json(compliment);
+  });
+});
+
 app.get("/*", function(req, res){
   res.render("compliments");
 });
