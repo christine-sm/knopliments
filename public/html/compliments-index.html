@@ -1,4 +1,5 @@
 <h2>{{compIndexVM.compliments.length}} compliments</h2>
+<div data-compliment-form data-compliment="vm.newCompliment" data-action="create"></div>
 <h3 data-ng-repeat="compliment in compIndexVM.compliments">
   <a href="/compliments/{{compliment.compliment}}">{{compliment.compliment}}</a>
 </h3>

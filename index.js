@@ -36,6 +36,18 @@ app.post("/api/compliments", function(req, res){
   });
 });
 
+app.delete("/api/compliments/:compliment", function(req, res){
+  Compliment.findOneAndRemove({compliment: req.params.compliment}).then(function(){
+    res.json({success: true});
+  });
+});
+
+app.put("/api/compliments/:compliment", function(req, res){
+  Compliment.findOneAndUpdate({compliment: req.params.compliment}, req.body.compliment, {new: true}).then(function(compliment){
+    res.json(compliment);
+  });
+});
+
 app.get("/*", function(req, res){
   res.render("compliments");
 });

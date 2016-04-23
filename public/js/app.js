@@ -16,11 +16,11 @@
     "$resource",
     ComplimentFactory
   ])
-  .directive("compForm", [
+  .directive("complimentForm", [
     "$state",
     "$stateParams",
     "Compliment",
-    compForm
+    complimentForm
   ])
   .controller("compIndexCtrl", [
     "Compliment",
@@ -70,7 +70,7 @@
     return Compliment;
   }
 
-  function compForm($state, $stateParams, Compliment){
+  function complimentForm($state, $stateParams, Compliment){
     var directive = {};
     directive.templateUrl = "public/html/compliments-form.html";
     directive.scope = {
@@ -78,22 +78,23 @@
       action: "@"
     };
     directive.link = function(scope){
-      var originalComp = $stateParams.compliment;
+      var originalCompliment = $stateParams.compliment;
       scope.create = function(){
         Compliment.save({compliment: scope.compliment}, function(response){
           var compliment = new Compliment(response);
+          Compliment.all.push(compliment);
           $state.go("show", {compliment: compliment.compliment});
         });
       };
       scope.update = function(){
-        Compliment.update({compliment: originalComp}, {compliment: scope.compliment}, function(compliment){
+        Compliment.update({compliment: originalCompliment}, {compliment: scope.compliment}, function(compliment){
           console.log("Updated!");
           $state.go("show", {compliment: compliment.compliment});
         });
       };
       scope.delete = function(){
-        var index = Compliment.all.indexOf(scope.ccompliment);
-        Compliment.remove({compliment: originalComp}, function(response){
+        var index = Compliment.all.indexOf(scope.compliment);
+        Compliment.remove({compliment: originalCompliment}, function(response){
           Compliment.all.splice(index, 1);
           $state.go("index");
         });

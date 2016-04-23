@@ -1,9 +1,10 @@
 <div data-ng-if="!compShowVM.compliment">
-  <h2>That candidate couldn't be found!</h2>
+  <h2>That compliment couldn't be found!</h2>
 </div>
 <div data-ng-if="compShowVM.compliment">
 
   <h2>{{compShowVM.compliment.compliment}}</h2>
   <img src="{{compShowVM.compliment.photo_url}}" alt="compliment" />
+  <div data-compliment-form data-compliment="vm.compliment" data-action="edit"></div>
 
 </div>
