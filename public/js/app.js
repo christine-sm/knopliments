@@ -72,7 +72,7 @@
 
   function complimentForm($state, $stateParams, Compliment){
     var directive = {};
-    directive.templateUrl = "public/html/compliments-form.html";
+    directive.templateUrl = "assets/html/compliments-form.html";
     directive.scope = {
       compliment: "=",
       action: "@"
