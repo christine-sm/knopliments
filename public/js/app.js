@@ -60,13 +60,6 @@
       update: {method: "PUT"}
     });
     Compliment.all = Compliment.query();
-    Compliment.find = function(property, value, callback){
-      Compliment.all.$promise.then(function(){
-        Compliment.all.forEach(function(compliment){
-          if(compliment[property] == value) callback(compliment);
-        });
-      });
-    };
     return Compliment;
   }
 
@@ -110,9 +103,16 @@
 
   function compShowCtrl(Compliment, $stateParams, $window){
     var vm = this;
-    Compliment.find("compliment", $stateParams.compliment, function(compliment){
-      vm.compliment = compliment;
+    Compliment.all.$promise.then(function(){
+      Compliment.all.forEach(function(compliment){
+        if(compliment.compliment == $stateParams.compliment){
+          vm.compliment = compliment;
+        }
+      });
     });
+    // Compliment.find("compliment", $stateParams.compliment, function(compliment){
+    //   vm.compliment = compliment;
+    // });
     // vm.update = function(){
     //   Compliment.update({compliment: vm.compliment.compliment}, {compliment: vm.compliment}, function(){
     //     console.log("Done!");
