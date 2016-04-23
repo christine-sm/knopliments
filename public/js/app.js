@@ -16,7 +16,12 @@
     "$resource",
     ComplimentFactory
   ])
-  .directive("compForm", compForm)
+  .directive("compForm", [
+    "$state",
+    "$stateParams",
+    "Compliment",
+    compForm
+  ])
   .controller("compIndexCtrl", [
     "Compliment",
     compIndexCtrl
@@ -63,6 +68,38 @@
       });
     };
     return Compliment;
+  }
+
+  function compForm($state, $stateParams, Compliment){
+    var directive = {};
+    directive.templateUrl = "public/html/compliments-form.html";
+    directive.scope = {
+      compliment: "=",
+      action: "@"
+    };
+    directive.link = function(scope){
+      var originalComp = $stateParams.compliment;
+      scope.create = function(){
+        Compliment.save({compliment: scope.compliment}, function(response){
+          var compliment = new Compliment(response);
+          $state.go("show", {compliment: compliment.compliment});
+        });
+      };
+      scope.update = function(){
+        Compliment.update({compliment: originalComp}, {compliment: scope.compliment}, function(compliment){
+          console.log("Updated!");
+          $state.go("show", {compliment: compliment.compliment});
+        });
+      };
+      scope.delete = function(){
+        var index = Compliment.all.indexOf(scope.ccompliment);
+        Compliment.remove({compliment: originalComp}, function(response){
+          Compliment.all.splice(index, 1);
+          $state.go("index");
+        });
+      };
+    };
+    return directive;
   }
 
   function compIndexCtrl(Compliment){
